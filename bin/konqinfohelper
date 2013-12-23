@@ -34,6 +34,8 @@
 # --jpg         Displays jpeg information.
 # --png         Displays png information.
 # --pdf         Displays pdf information.
+# --tga         Displays tga information.
+# --tiff        Displays tiff information.
 # --torrent     Displays torrent information.
 #
 
@@ -60,112 +62,6 @@ general() {
 }
 
 #
-# Audio files
-#
-
-mp3() {
-  if [ -x /usr/bin/id3info ] ;then
-    COMMAND="/usr/bin/id3info"
-  else
-    ${KDIALOG} --error "id3info (id3lib) is not installed"
-    return 1
-  fi
-  ${KDIALOG} --title "${FILE}" --msgbox "$(${COMMAND} "${FILE}")"
-}
-
-m4a() {
-  if [ -x /usr/bin/mp4info ] ;then
-    COMMAND="/usr/bin/mp4info"
-  else
-    ${KDIALOG} --error "mp4info (libmp4v2) is not installed"
-    return 1
-  fi
-  ${KDIALOG} --title "${FILE}" --msgbox "$(${COMMAND} "${FILE}")"
-}
-
-ogg() {
-  if [ -x /usr/bin/ogginfo ] ;then
-    COMMAND="/usr/bin/ogginfo"
-  else
-    ${KDIALOG} --error "ogginfo (vorbis-tools) is not installed"
-    return 1
-  fi
-  ${KDIALOG} --title "${FILE}" --msgbox "$(${COMMAND} "${FILE}")"
-}
-
-wav() {
-  if [ -x /usr/bin/wavinfo ] ;then
-    COMMAND="/usr/bin/wavinfo"
-  else
-    ${KDIALOG} --error "wavinfo (aften) is not installed"
-    return 1
-  fi
-  ${KDIALOG} --title "${FILE}" --msgbox "$(${COMMAND} "${FILE}")"
-}
-
-#
-# Video files/containers
-#
-
-avi() {
-  general
-}
-
-mkv() {
-  if [ -x /usr/bin/mkvinfo ] ;then
-    COMMAND="/usr/bin/mkvinfo"
-  else
-    ${KDIALOG} --error "mkvinfo (mkvtoolnix) is not installed"
-    return 1
-  fi
-  ${KDIALOG} --title "${FILE}" --msgbox "$(${COMMAND} "${FILE}")"
-}
-
-mpg() {
-  if [ -x /usr/bin/mpgtx ] ;then
-    COMMAND="/usr/bin/mpgtx -i"
-  else
-    ${KDIALOG} --error "mpgtx is not installed"
-    return 1
-  fi
-  ${KDIALOG} --title "${FILE}" --msgbox "$(${COMMAND} "${FILE}")"
-}
-
-#
-# Image files
-#
-
-gif() {
-  if [ -x /usr/bin/gifinfo ] ;then
-    COMMAND="/usr/bin/gifinfo"
-  else
-    ${KDIALOG} --error "gifinfo (giflib/libungif) is not installed"
-    return 1
-  fi
-  ${KDIALOG} --title "${FILE}" --msgbox "$(${COMMAND} "${FILE}")"
-}
-
-jpeg() {
-  if [ -x /usr/bin/exiftool ] ;then
-    COMMAND="/usr/bin/exiftool"
-  elif [ -x /usr/bin/exiv2 ] ;then
-    COMMAND="/usr/bin/exiv2"
-  else
-    ${KDIALOG} --error "exiftool (perl-image-exiftool) or exiv2 is not installed"
-    return 1
-  fi
-  ${KDIALOG} --title "${FILE}" --msgbox "$(${COMMAND} "${FILE}")"
-}
-
-png() {
-  general
-}
-
-tga() {
-  general
-}
-
-#
 # etc files
 #
 
@@ -178,7 +74,7 @@ pdf() {
   fi
   ${KDIALOG} --title "${FILE}" --msgbox "$(${COMMAND} "${FILE}")"
 }
-1
+
 torrent() {
   if [ -x /usr/bin/torrentinfo ] ;then
     COMMAND="/usr/bin/torrentinfo -n"
@@ -190,39 +86,6 @@ torrent() {
 }
 
 case ${TYPE} in
-  --mp3)
-    mp3
-    ;;
-  --m4a)
-    m4a
-    ;;
-  --ogg)
-    ogg
-    ;;
-  --wav)
-    wav
-    ;;
-  --avi)
-    avi
-    ;;
-  --mkv)
-    mkv
-    ;;
-  --mpg)
-    mpg
-    ;;
-  --gif)
-    gif
-    ;;
-  --jpeg|--jpg)
-    jpeg
-    ;;
-  --png)
-    png
-    ;;
-  --tga)
-    tga
-    ;;
   --pdf)
     pdf
     ;;
